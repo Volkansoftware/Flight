@@ -10,6 +10,7 @@ public class RouteEntity {
     @Column(name = "route_id")
     private Long id;
 
+
     @ManyToOne
     @JoinColumn(name = "route_source")
     private AirportEntity source;
@@ -17,7 +18,6 @@ public class RouteEntity {
     @ManyToOne
     @JoinColumn(name = "route_destination")
     private AirportEntity destination;
-
     @Column(name = "route_distance")
     private Double distanceInMiles;
 

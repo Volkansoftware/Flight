@@ -20,9 +20,11 @@ public class FlightEntity {
     @Column(name= "flight_num")
     private String flightNumber;
 
-
-    @Column(name= "flight_route")
+    @ManyToOne
+    @JoinColumn(name = "route_id")
     private RouteEntity route;
+
+
 
 
     @Column(name= "flight_price")
@@ -34,7 +36,7 @@ public class FlightEntity {
     private Date departureTime;
 
     @Column(name = "flight_arr")
-    @Temporal(TemporalType.TIMESTAMP) // or @Temporal(TemporalType.DATE) if you want to store only the date
+    @Temporal(TemporalType.TIMESTAMP) // or @Temporal(TemporalT ype.DATE) if you want to store only the date
     private Date arrivalTime;
 
 
