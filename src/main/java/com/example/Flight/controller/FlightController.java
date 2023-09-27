@@ -1,5 +1,6 @@
 package com.example.Flight.controller;
 
+import com.example.Flight.dto.FlightRequest;
 import com.example.Flight.entity.FlightEntity;
 import com.example.Flight.service.FlightService;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/flight")
 public class FlightController {
@@ -15,10 +17,13 @@ public class FlightController {
 
     public FlightController(FlightService flightService) {
         this.flightService = flightService;
+
     }
-    @GetMapping
-    public List<FlightEntity> findAllFlight()
-    {
+
+
+    // we can use (value = "/") or ("/") for the same purpose
+    @GetMapping("/")
+    public List<FlightEntity> findAllFlight() {
         return flightService.findAllFlight();
     }
 
@@ -28,12 +33,12 @@ public class FlightController {
         return flightService.findById(id);
     }
 
-    @PostMapping
-    public FlightEntity saveFlight(@RequestBody FlightEntity flightEntity){
-        return flightService.saveFlight(flightEntity);
+    @PostMapping("/")
+    public String saveFlight(@RequestBody FlightRequest flightRequest){
+        return flightService.saveFlight(flightRequest);
     }
 
-    @PutMapping
+    @PutMapping("/")
     public FlightEntity updateFlight(@RequestBody FlightEntity flightEntity){
         return flightService.updateFlight(flightEntity);
     }
