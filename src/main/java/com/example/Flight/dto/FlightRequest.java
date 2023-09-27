@@ -1,72 +1,43 @@
-package com.example.Flight.entity;
-
+package com.example.Flight.dto;
 
 import com.example.Flight.FlightStatusEnum;
-
-import jakarta.persistence.*;
+import com.example.Flight.entity.RouteEntity;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "mt_flight")
-public class FlightEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "flight_id")
-    private Long id;
+// this class is used to post the data to the database
+public class FlightRequest {
 
-
-    @Column(name= "flight_num")
     private String flightNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "route_id")
-    private RouteEntity route;
+    private Long routeId;
 
-
-
-
-    @Column(name= "flight_price")
     private double price;
 
-
-    @Column(name = "flight_depart")
-    @Temporal(TemporalType.TIMESTAMP) // or @Temporal(TemporalType.DATE) if you want to store only the date
     private Date departureTime;
 
-    @Column(name = "flight_arr")
-    @Temporal(TemporalType.TIMESTAMP) // or @Temporal(TemporalT ype.DATE) if you want to store only the date
     private Date arrivalTime;
 
-
-    @Column(name= "flight_capacity")
     private int capacity;
 
-    @Column(name= "flight_status")
     private FlightStatusEnum status;
 
-    public FlightEntity(Long id, String flightNumber, RouteEntity route, double price, Date departureTime, Date arrivalTime, int capacity, FlightStatusEnum status) {
-        this.id = id;
+    private RouteEntity route;
+
+    public FlightRequest() {
+
+    }
+
+    public FlightRequest(String flightNumber, Long routeId, double price, Date departureTime, Date arrivalTime, int capacity, FlightStatusEnum status, RouteEntity route) {
         this.flightNumber = flightNumber;
-        this.route = route;
+        this.routeId = routeId;
         this.price = price;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.capacity = capacity;
         this.status = status;
-    }
-
-    public FlightEntity() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.route = route;
     }
 
     public String getFlightNumber() {
@@ -77,12 +48,12 @@ public class FlightEntity {
         this.flightNumber = flightNumber;
     }
 
-    public RouteEntity getRoute() {
-        return route;
+    public Long getRouteId() {
+        return routeId;
     }
 
-    public void setRoute(RouteEntity route) {
-        this.route = route;
+    public void setRouteId(Long routeId) {
+        this.routeId = routeId;
     }
 
     public double getPrice() {
@@ -124,6 +95,12 @@ public class FlightEntity {
     public void setStatus(FlightStatusEnum status) {
         this.status = status;
     }
+
+    public RouteEntity getRoute() {
+        return route;
+    }
+
+    public void setRoute(RouteEntity route) {
+        this.route = route;
+    }
 }
-
-

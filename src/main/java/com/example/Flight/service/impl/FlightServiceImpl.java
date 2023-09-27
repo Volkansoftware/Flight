@@ -1,6 +1,7 @@
 package com.example.Flight.service.impl;
 
 
+import com.example.Flight.dto.FlightRequest;
 import com.example.Flight.entity.FlightEntity;
 import com.example.Flight.repository.FlightRepository;
 import com.example.Flight.service.FlightService;
@@ -28,9 +29,28 @@ public class FlightServiceImpl implements FlightService {
         return flightRepository.findById(id);
     }
 
+    // this method is used to save the flight
     @Override
-    public FlightEntity saveFlight(FlightEntity flightEntity) {
-        return flightRepository.save(flightEntity);
+    public String saveFlight(FlightRequest flightRequest) {
+        // we are creating a new object of FlightEntity
+        FlightEntity flightEntity = new FlightEntity();
+        flightEntity.setFlightNumber(flightRequest.getFlightNumber());
+        flightEntity.setPrice(flightRequest.getPrice());
+        flightEntity.setDepartureTime(flightRequest.getDepartureTime());
+        flightEntity.setArrivalTime(flightRequest.getArrivalTime());
+        flightEntity.setCapacity(flightRequest.getCapacity());
+        flightEntity.setStatus(flightRequest.getStatus());
+        flightEntity.setRoute(flightRequest.getRoute());
+
+        // we are saving the flightEntity object in the database
+        try {
+            flightRepository.save(flightEntity);
+            return "Flight saved";
+        } catch (Exception e) {
+            // if there is any error while saving the flight, we are returning the error message
+             System.out.println("Error: " + e.getMessage());
+                return "Error: " + e.getMessage();
+        }
     }
 
     @Override
